@@ -1,7 +1,7 @@
 import "dotenv/config"; // <--- Add this at line 1!
 import express, { Request, Response } from "express";
 import cors from "cors";
-import * as RecipeAPI from "./recipe-api";
+import * as RecipeAPI from "./recipe-api.js";
 
 const app = express();
 

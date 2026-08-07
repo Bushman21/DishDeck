@@ -11,8 +11,8 @@ export const searchRecipes = async (searchTerm: string, page: number) => {
   const queryParams = {
     apiKey: API_KEY,
     query: searchTerm,
-    number: 10,
-    offset: (page - 1) * 10,
+    number: page.toString(),
+    offset: String((page - 1) * 10),
   };
 
   url.search = new URLSearchParams(queryParams).toString();
