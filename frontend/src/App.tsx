@@ -3,11 +3,13 @@ import { useState } from "react";
 import "./App.css";
 import { searchRecipes } from "./api";
 import type { Recipe } from "./types";
+import {  type FormEvent } from 'react';
 const App = () => {
    const [searchTerm, setSearchTerm] = useState("burgers");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
-const handleSearchSubmit = async () => {
+const handleSearchSubmit = async (event: FormEvent) => {
+  event.preventDefault();
     try {
       const data = await searchRecipes(searchTerm, 1);
       setRecipes(data);
@@ -17,7 +19,7 @@ const handleSearchSubmit = async () => {
   };
 
   return <div>
-     <form onSubmit={handleSearchSubmit}>
+     <form onSubmit={(event) => handleSearchSubmit(event)}>
         <input
           type="text"
           required
