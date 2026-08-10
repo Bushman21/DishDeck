@@ -1,5 +1,5 @@
 const searchRecipes = async (searchTerm: string, page: number) => {
-  const baseUrl = "http://localhost:5000/api/recipe/search";
+  const baseUrl = "http://localhost:5000/api/recipes/search";
   const url = `${baseUrl}?searchTerm=${encodeURIComponent(searchTerm)}&page=${page}`;
 
   const response = await fetch(url);

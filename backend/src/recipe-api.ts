@@ -1,27 +1,33 @@
-
-const API_KEY = process.env.API_KEY;
 export const searchRecipes = async (searchTerm: string, page: number) => {
-  if (!API_KEY) {
-    throw new Error("API key not found");
+  const apiKey = process.env.API_KEY;
+
+  if (!apiKey) {
+    throw new Error("API key not found in environment variables.");
   }
 
   const baseURL = "https://api.spoonacular.com/recipes/complexSearch";
   const url = new URL(baseURL);
 
+  const pageSize = 10; // Number of recipes per page
+
   const queryParams = {
-    apiKey: API_KEY,
+    apiKey: apiKey,
     query: searchTerm,
-    number: page.toString(),
-    offset: String((page - 1) * 10),
+    number: pageSize.toString(), // Requests 10 items per page
+    offset: String((page - 1) * pageSize), // Offsets results for pagination
   };
 
   url.search = new URLSearchParams(queryParams).toString();
 
-  try {
-    const searchResponse = await fetch(url.toString());
-    const resultsJson = await searchResponse.json();
-    return resultsJson;
-  } catch (error) {
-    console.error(error);
+  const searchResponse = await fetch(url.toString());
+
+  if (!searchResponse.ok) {
+    const errorText = await searchResponse.text();
+    throw new Error(
+      `Spoonacular API error (${searchResponse.status}): ${errorText}`
+    );
   }
+
+  const resultsJson = await searchResponse.json();
+  return resultsJson;
 };
