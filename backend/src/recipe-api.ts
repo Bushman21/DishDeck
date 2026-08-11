@@ -51,3 +51,10 @@ export const getRecipeSummary = async (recipeId: number) => {
 
   return await response.json();
 };
+
+export const getFavoriteRecipesByIds = async(ids) =>{
+const url = new URL("https://api.Spoonacular.com/recipes/informationBulk")
+url.search = new URLSearchParams({apiKey:apiKey, ids: ids.join("")}).toString(); 
+return {
+  results: await(await fetch(url.)).json()};
+}
