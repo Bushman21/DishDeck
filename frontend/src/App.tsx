@@ -3,11 +3,12 @@ import "./App.css";
 import { searchRecipes } from "./api";
 import type { Recipe } from "./types";
 import RecipeCard from "./components/RecipeCard";
+import { RecipeModal } from "./components/RecipeModal";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("burgers");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  cosnt [selectedRecipe, setSelectedRecipe] = useState(undefined);
+  const [selectedRecipe, setSelectedRecipe] = useState(undefined);
   const pageNumber = useRef(1);
 
   const handleSearchSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -47,7 +48,7 @@ const App = () => {
       </form>
 
       {recipes.map((recipe) => (
-        <RecipeCard key={recipe.id} recipe={recipe} onClick={() => setSelectedRecipe(recipe)}/>
+        <RecipeCard recipe={recipe} onClick={() => setSelectedRecipe(recipe)}/>
       ))}
 
       {recipes.length > 0 && (
