@@ -7,6 +7,7 @@ import RecipeCard from "./components/RecipeCard";
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("burgers");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
+  cosnt [selectedRecipe, setSelectedRecipe] = useState(undefined);
   const pageNumber = useRef(1);
 
   const handleSearchSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -46,13 +47,15 @@ const App = () => {
       </form>
 
       {recipes.map((recipe) => (
-        <RecipeCard key={recipe.id} recipe={recipe} />
+        <RecipeCard key={recipe.id} recipe={recipe} onClick={() => setSelectedRecipe(recipe)}/>
       ))}
 
       {recipes.length > 0 && (
         <button className="view-more-button" onClick={handleViewMoreClick}>
           View More
         </button>
+
+        { selectedRecipe ? <RecipeModal /> : null}
       )}
     </div>
   );

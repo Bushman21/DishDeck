@@ -1,12 +1,13 @@
-const RecipeModal = () => {
+export const RecipeModal = () => {
     return (
         <div className="overlay">
             <div className="modal">
                 <div className="modal-header">
-                    <h2>Recipe Details</h2>
+                    <h2>RECIPE TITLE</h2>
+                    <span className="close-btn">&times;</span>
                 </div>
                 <div className="modal-body">
-                    <p>This is where the recipe details would be displayed.</p>
+                    <p>RECIPE SUMMARY</p>
                 </div>
             </div>
         </div>
