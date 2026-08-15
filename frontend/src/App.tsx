@@ -8,7 +8,7 @@ import { RecipeModal } from "./components/RecipeModal";
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("burgers");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [selectedRecipe, setSelectedRecipe] = useState(undefined);
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
   const pageNumber = useRef(1);
 
   const handleSearchSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -48,16 +48,20 @@ const App = () => {
       </form>
 
       {recipes.map((recipe) => (
-        <RecipeCard recipe={recipe} onClick={() => setSelectedRecipe(recipe)}/>
+        <RecipeCard recipe={recipe} onClick={() => setSelectedRecipe(recipe)} />
       ))}
+{recipes.length > 0 && (
+  <button className="view-more-button" onClick={handleViewMoreClick}>
+    View More
+  </button>
+)}
 
-      {recipes.length > 0 && (
-        <button className="view-more-button" onClick={handleViewMoreClick}>
-          View More
-        </button>
-
-        { selectedRecipe ? <RecipeModal /> : null}
-      )}
+{selectedRecipe && (
+  <RecipeModal
+    recipeId={selectedRecipe.id.toString()}
+    onClose={() => setSelectedRecipe(null)}
+  />
+)}
     </div>
   );
 };
