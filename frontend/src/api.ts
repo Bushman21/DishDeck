@@ -1,4 +1,4 @@
-const searchRecipes = async (searchTerm: string, page: number) => {
+export const searchRecipes = async (searchTerm: string, page: number) => {
   const baseUrl = "http://localhost:5000/api/recipes/search";
   const url = `${baseUrl}?searchTerm=${encodeURIComponent(searchTerm)}&page=${page}`;
 
@@ -11,4 +11,11 @@ const searchRecipes = async (searchTerm: string, page: number) => {
   return response.json();
 };
 
-export { searchRecipes };
+export const getRcipeSummary = {recipeId: String} => {
+  const url = new URL('http://localhost:5000/api/recipes/${recipeId}/summary' );
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`HTTP Error: ${response.status}`);
+  }
+  return response.json();
+};
