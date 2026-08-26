@@ -11,8 +11,8 @@ export const searchRecipes = async (searchTerm: string, page: number) => {
   return response.json();
 };
 
-export const getRcipeSummary = {recipeId: String} => {
-  const url = new URL('http://localhost:5000/api/recipes/${recipeId}/summary' );
+export const getRecipeSummary = ({ recipeId }: { recipeId: string }) => async () => {
+  const url = new URL(`http://localhost:5000/api/recipes/${recipeId}/summary`);
   const response = await fetch(url);
   if (!response.ok) {
     throw new Error(`HTTP Error: ${response.status}`);

@@ -3,3 +3,10 @@ node_modules
 .env
 
 /generated/prisma
+
+
+# AI & IDE Tooling Folders
+.agents/
+.claude/
+.windsurf/
+.continue/
