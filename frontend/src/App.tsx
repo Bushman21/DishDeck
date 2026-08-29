@@ -56,10 +56,9 @@ const App = () => {
   </button>
 )}
 
-{selectedRecipe && (
+{selectedRecipe? (
   <RecipeModal
     recipeId={selectedRecipe.id.toString()}
-    onClose={() => setSelectedRecipe(null)}
   />
 )}
     </div>
