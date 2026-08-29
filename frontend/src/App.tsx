@@ -58,7 +58,7 @@ const App = () => {
 
 {selectedRecipe? (
   <RecipeModal
-    recipeId={selectedRecipe.id.toString()}
+    recipeId={selectedRecipe.id.toString()} onClose={() => setSelectedRecipe(undefined)}
   />
 )}
     </div>

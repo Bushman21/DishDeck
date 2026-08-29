@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import * as RecipeAPI from '../api';
 
-interface props {
-    recipeId: string;
-    onClick: () => void;
+interface Props {
+  recipe: Recipe;
+  onClick: () => void;
 }
 
 export const RecipeModal = ({ recipeId }: props) => {
@@ -26,7 +26,7 @@ export const RecipeModal = ({ recipeId }: props) => {
                 <div className="modal-content">
                     <div className="modal-header">
                     <h2>{recipeSummary.title}</h2>
-                    <span className="close-btn">&times;</span>
+                    <span className="close-btn" onClick={onClose}>&times;</span>
                     </div>
                 </div>
                 <div className="modal-body">
@@ -34,5 +34,6 @@ export const RecipeModal = ({ recipeId }: props) => {
                 </div>
             </div>
         </div>
+        
     );
 }
