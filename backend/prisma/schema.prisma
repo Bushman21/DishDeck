@@ -11,3 +11,7 @@ model User {
   email     String   @unique
   createdAt DateTime @default(now())
 }
+model FavoriteRecipes{
+  id Int @id @default(autoincrement())
+  recipeId Int @unique
+}
