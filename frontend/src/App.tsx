@@ -8,7 +8,7 @@ import { RecipeModal } from "./components/RecipeModal";
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("burgers");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | null>(null);
+  const [selectedRecipe, setSelectedRecipe] = useState<Recipe | undefined>(undefined);
   const pageNumber = useRef(1);
 
   const handleSearchSubmit = async (event: FormEvent<HTMLFormElement>) => {

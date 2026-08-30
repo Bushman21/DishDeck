@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import * as RecipeAPI from '../api';
 
 interface Props {
-  recipe: Recipe;
+  recipeId: string;
   onClick: () => void;
 }
 
-export const RecipeModal = ({ recipeId }: props) => {
+export const RecipeModal = ({ recipeId, onClose }: props) => {
     const [recipeSummary, setRecipeSummary] = useState<string | null>(null);
     useEffect(() => {
         const fetchRecipeSummary = async () => {
