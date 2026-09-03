@@ -1,4 +1,4 @@
-import "dotenv/config"; // <--- Add this at line 1!
+import "dotenv/config"; 
 import express, { Request, Response } from "express";
 import cors from "cors";
 import * as RecipeAPI from "./recipe-api.js";
@@ -29,12 +29,12 @@ app.get("/api/recipes/search", async (req: Request, res: Response) => {
   }
 });
 
-app.post("/api/recipes/favorite", async (req, res) => {
+app.post("/api/recipes/favourite", async (req, res) => {
   
     const recipeId  = req.body.recipeId;
 
     try {
-      const favoriteRecipe = await prismaClient.favoriteRecipes.create({
+      const favoriteRecipe = await prismaClient.favouriteRecipes.create({
         data: {
           recipeId: recipeId,
         },
@@ -48,6 +48,19 @@ app.post("/api/recipes/favorite", async (req, res) => {
     return res.status(500).json({ error: "Oops! something went wrong" });
   }
 });
+
+app.get("/api/recipes/favourite", async (req, res) => {
+
+  try {
+    const recipes = await prismaClient.favouriteRecipes.findMany();
+    const recipeIds = recipes.map((recipe) => recipe.recipeId.toString());
+    return res.status(200).json(recipeIds);
+  } catch (error) {
+    console.error("=== Favourite Recipes Error Details ===", error);
+    return res.status(500).json({ error: "Failed to fetch favourite recipes" });
+  }
+
+}
 
 const PORT = process.env.PORT || 5000;
 

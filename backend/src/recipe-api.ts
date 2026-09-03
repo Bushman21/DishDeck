@@ -53,8 +53,13 @@ export const getRecipeSummary = async (recipeId: number) => {
 };
 
 export const getFavoriteRecipesByIds = async(ids: string[]) =>{
+
+ if (!apiKey) {
+    throw new Error("API key not found in environment variables.");
+  }
 const url = new URL("https://api.Spoonacular.com/recipes/informationBulk")
 url.search = new URLSearchParams({apiKey:apiKey, ids:ids.join(",")}).toString(); 
 return {
   results: await(await fetch(url)).json()};
 }
+
