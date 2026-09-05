@@ -5,10 +5,13 @@ import type { Recipe } from "./types";
 import RecipeCard from "./components/RecipeCard";
 import { RecipeModal } from "./components/RecipeModal";
 
+type Tabs = "search" | "favourites";
+
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("burgers");
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | undefined>(undefined);
+  const [selectedTab, setSelectedTab] = useState<Tabs>("search");
   const pageNumber = useRef(1);
 
   const handleSearchSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -36,6 +39,20 @@ const App = () => {
 
   return (
     <div>
+    <div className="tabs">
+        <button
+          className={selectedTab === "search" ? "active" : ""}
+          onClick={() => setSelectedTab("search")}
+        >
+          Search
+        </button>
+        <button
+          className={selectedTab === "favourites" ? "active" : ""}
+          onClick={() => setSelectedTab("favourites")}
+        >
+          Favourites
+        </button>
+      </div>
       <form onSubmit={handleSearchSubmit}>
         <input
           type="text"

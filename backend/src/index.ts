@@ -54,13 +54,29 @@ app.get("/api/recipes/favourite", async (req, res) => {
   try {
     const recipes = await prismaClient.favouriteRecipes.findMany();
     const recipeIds = recipes.map((recipe) => recipe.recipeId.toString());
-    return res.status(200).json(recipeIds);
+    return res.status(200).json(favourites);
   } catch (error) {
     console.error("=== Favourite Recipes Error Details ===", error);
     return res.status(500).json({ error: "Failed to fetch favourite recipes" });
   }
 
 }
+
+ app.delete("/api/recipes/favourite/:id", async (req, res) => {
+  const recipeId = req.body.recipeId;
+
+  try {
+    await prismaClient.favouriteRecipes.delete({
+      where: {
+        recipeId: recipeId,
+      },
+    });
+    return res.status(200).json({ message: "Recipe removed from favourites" });
+  } catch (error) {
+    console.error("=== Delete Favourite Recipe Error Details ===", error);
+    return res.status(500).json({ error: "Failed to remove recipe from favourites" });
+  }
+});
 
 const PORT = process.env.PORT || 5000;
 
