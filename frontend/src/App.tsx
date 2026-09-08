@@ -1,4 +1,4 @@
-import { useState, useRef, type FormEvent } from "react";
+import { useState, useRef, type FormEvent, useEffect } from "react";
 import "./App.css";
 import { searchRecipes } from "./api";
 import type { Recipe } from "./types";
@@ -12,7 +12,20 @@ const App = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [selectedRecipe, setSelectedRecipe] = useState<Recipe | undefined>(undefined);
   const [selectedTab, setSelectedTab] = useState<Tabs>("search");
+  const [favouriteRecipes, setFavouriteRecipes] = useState<Recipe[]>([]);
   const pageNumber = useRef(1);
+
+  useEffect(() => {
+    const fetchFavouriteRecipes = async () => {
+      try {
+        const favouriteRecipes = await api.getFavouriteRecipes();
+        setFavouriteRecipes(favouriteRecipes);
+      } catch (error) {
+        console.log(Error);
+      }
+    }
+    fetchFavouriteRecipes();
+  }, [])
 
   const handleSearchSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();

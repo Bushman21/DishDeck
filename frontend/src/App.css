@@ -65,3 +65,11 @@
   opacity: 0.8;
   padding: 0.5em 1.5em 0.5em 1.5em;
 }
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1em;
+  cursor: pointer;
+  margin-top: 1em;
+}
