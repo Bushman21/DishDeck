@@ -86,6 +86,15 @@ const App = () => {
   </button>
 )}
 
+{selectedTab === "favourites" && (
+  <div>
+    <h2>Favourite Recipes</h2>
+    {favouriteRecipes.map((recipe) => (
+      <RecipeCard recipe={recipe} onClick={() => setSelectedRecipe(recipe)} />
+    ))}
+  </div>
+)}
+
 {selectedRecipe? (
   <RecipeModal
     recipeId={selectedRecipe.id.toString()} onClose={() => setSelectedRecipe(undefined)}
